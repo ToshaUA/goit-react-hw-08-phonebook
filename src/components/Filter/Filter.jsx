@@ -5,7 +5,7 @@ export const Filter = ({ onSearch, value }) => {
   return (
     <FilterBox>
       <Label>
-        Find contacts by name
+        Enter contact name
         <InpuStyle type="text" value={value} onChange={onSearch} />
       </Label>
     </FilterBox>
