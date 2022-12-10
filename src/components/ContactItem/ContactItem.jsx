@@ -1,15 +1,27 @@
+import { Contact, Button } from './ContactItem.styled';
+import PropTypes from 'prop-types';
+
 export const ContactItem = ({
   contact: { id, name, number },
   onDeleteContact,
 }) => {
   return (
     <>
-      <p>
+      <Contact>
         {name}: {number}
-      </p>
-      <button type="button" onClick={() => onDeleteContact(id)}>
+      </Contact>
+      <Button type="button" onClick={() => onDeleteContact(id)}>
         Delete
-      </button>
+      </Button>
     </>
   );
+};
+
+ContactItem.propTypes = {
+  contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }),
+  onDeleteContact: PropTypes.func.isRequired,
 };

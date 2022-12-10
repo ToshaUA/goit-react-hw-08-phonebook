@@ -1,5 +1,7 @@
-import { Formik, Form, Field } from 'formik';
+import { Formik } from 'formik';
+import { FormStyle, FieldStyle, Label, Button } from './ContactForm.styled';
 import * as yup from 'yup';
+import PropTypes from 'prop-types';
 
 const initialValue = {
   name: '',
@@ -30,29 +32,33 @@ export const ContactForm = ({ addContact }) => {
       validationScheme={schema}
       onSubmit={handleSubmit}
     >
-      <Form>
-        <label htmlFor="name">
+      <FormStyle>
+        <Label htmlFor="name">
           Name
-          <Field
+          <FieldStyle
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
           />
-        </label>
-        <label htmlFor="number">
+        </Label>
+        <Label htmlFor="number">
           Number
-          <Field
+          <FieldStyle
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
-        </label>
-        <button type="submit">Add contact</button>
-      </Form>
+        </Label>
+        <Button type="submit">Add contact</Button>
+      </FormStyle>
     </Formik>
   );
+};
+
+ContactForm.propTypes = {
+  addContact: PropTypes.func.isRequired,
 };
