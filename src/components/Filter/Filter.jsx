@@ -12,7 +12,7 @@ export const Filter = ({ onSearch, value }) => {
   );
 };
 
-Filter.proTotype = {
+Filter.propTypes = {
   onSearch: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };
