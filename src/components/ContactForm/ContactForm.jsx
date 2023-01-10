@@ -1,7 +1,10 @@
 import { Formik } from 'formik';
 import { FormStyle, FieldStyle, Label, Button } from './ContactForm.styled';
 import * as yup from 'yup';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/itemsSlice/contactsSlice';
+import { nanoid } from 'nanoid';
+import { getContacts } from 'redux/selectors';
 
 const initialValue = {
   name: '',
@@ -21,11 +24,28 @@ let schema = yup.object().shape({
     .integer(),
 });
 
-export const ContactForm = ({ addContact }) => {
+export const ContactForm = () => {
+  const { contactsList } = useSelector(getContacts);
+  const dispatch = useDispatch();
   const handleSubmit = (value, { resetForm }) => {
-    addContact(value);
+    let isName = false;
+    if (contactsList && contactsList.length > 0) {
+      contactsList.forEach(({ name }) => {
+        if (value.name.toLowerCase() === name.toLowerCase()) {
+          alert(`${value.name} is already in contacts`);
+          isName = true;
+        }
+      });
+    }
+
+    if (!isName) {
+      value.id = nanoid();
+      dispatch(addContact(value));
+    }
+
     resetForm();
   };
+
   return (
     <Formik
       initialValues={initialValue}
@@ -57,8 +77,4 @@ export const ContactForm = ({ addContact }) => {
       </FormStyle>
     </Formik>
   );
-};
-
-ContactForm.propTypes = {
-  addContact: PropTypes.func.isRequired,
 };
