@@ -41,9 +41,8 @@ export const ContactForm = () => {
     if (!isName) {
       value.id = nanoid();
       dispatch(addContact(value));
+      resetForm();
     }
-
-    resetForm();
   };
 
   return (
