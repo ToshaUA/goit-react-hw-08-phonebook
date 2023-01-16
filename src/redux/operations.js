@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 axios.defaults.baseURL = 'https://63c463b78067b6bef6d87ecb.mockapi.io/contacts';
 
@@ -10,7 +11,9 @@ export const fetchContacts = createAsyncThunk(
       const response = await axios.get('/contacts');
       return response.data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(
+        toast.error('Connection error, please try again later!')
+      );
     }
   }
 );
@@ -22,7 +25,9 @@ export const addContact = createAsyncThunk(
       const response = await axios.post('/contacts', contact);
       return response.data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(
+        toast.error('Connection error, please try again later!')
+      );
     }
   }
 );
@@ -34,7 +39,9 @@ export const deleteContact = createAsyncThunk(
       const response = await axios.delete(`/contacts/${contactId}`);
       return response.data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(
+        toast.error('Connection error, please try again later!')
+      );
     }
   }
 );

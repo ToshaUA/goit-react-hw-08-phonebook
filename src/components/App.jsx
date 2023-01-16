@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import { fetchContacts } from 'redux/operations';
 import { Loader } from './Loader/Loader';
+import { Toaster } from 'react-hot-toast';
 
 export const App = () => {
   const { items, isLoading, error } = useSelector(selectContacts);
@@ -26,9 +27,9 @@ export const App = () => {
       <Section title={'Contacts'}>
         <Filter />
         {isLoading && <Loader />}
-        {error && <div>Sorry, something went wrong :( Please try again</div>}
         {items.length > 0 && !isLoading && !error && <ContactList />}
       </Section>
+      <Toaster position="bottom-right" reverseOrder={false} />
       <GlobalStyle />
     </Container>
   );
