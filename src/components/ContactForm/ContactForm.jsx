@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
 import { selectContacts } from 'redux/selectors';
+import toast from 'react-hot-toast';
 
 const initialValue = {
   name: '',
@@ -38,6 +39,7 @@ export const ContactForm = () => {
     }
 
     if (!isName) {
+      toast.success('Contact added!');
       dispatch(addContact(value));
       resetForm();
     }
