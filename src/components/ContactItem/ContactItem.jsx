@@ -1,26 +1,34 @@
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
 import { Contact, Button } from './ContactItem.styled';
+import { Loader } from '../Loader/Loader';
 import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
 
 export const ContactItem = ({ contact: { id, name, phone } }) => {
   const dispatch = useDispatch();
+  const { isLoadingDelete } = useSelector(selectContacts);
+
+  const [isDeleting, setIsDeleting] = useState(null);
+
+  const handleDelete = id => {
+    setIsDeleting(id);
+    dispatch(deleteContact(id)) &&
+      toast('Contact deleted!', {
+        icon: '🤦‍♂️',
+      });
+  };
+
   return (
     <>
       <Contact>
         {name}: {phone}
       </Contact>
-      <Button
-        type="button"
-        onClick={() =>
-          dispatch(deleteContact(id)) &&
-          toast('Contact deleted!', {
-            icon: '🤦‍♂️',
-          })
-        }
-      >
+      <Button type="button" onClick={() => handleDelete(id)}>
         Delete
+        {isLoadingDelete && isDeleting === id && <Loader />}
       </Button>
     </>
   );

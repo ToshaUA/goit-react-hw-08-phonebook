@@ -7,7 +7,7 @@ import { Filter } from './Filter/Filter';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import { fetchContacts } from 'redux/operations';
-import { Loader } from './Loader/Loader';
+import { LoaderМount } from './Loader/Loader';
 import { Toaster } from 'react-hot-toast';
 
 export const App = () => {
@@ -26,7 +26,7 @@ export const App = () => {
       </Section>
       <Section title={'Contacts'}>
         <Filter />
-        {isLoading && <Loader />}
+        {isLoading && <LoaderМount />}
         {items.length > 0 && !isLoading && !error && <ContactList />}
       </Section>
       <Toaster position="bottom-right" reverseOrder={false} />

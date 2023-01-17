@@ -43,9 +43,10 @@ export const FieldStyle = styled(Field)`
 
 export const Button = styled.button`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   width: 150px;
+  height: 16px;
   border-radius: 8px;
   line-height: 0;
   margin: auto;

@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
 import { selectContacts } from 'redux/selectors';
+import { Loader } from '../Loader/Loader';
 import toast from 'react-hot-toast';
 
 const initialValue = {
@@ -25,23 +26,31 @@ let schema = yup.object().shape({
 });
 
 export const ContactForm = () => {
-  const { items } = useSelector(selectContacts);
+  const { items, isLoadingAdd, error } = useSelector(selectContacts);
   const dispatch = useDispatch();
-  const handleSubmit = (value, { resetForm }) => {
+  const handleSubmit = async (value, { resetForm }) => {
     let isName = false;
     if (items && items.length > 0) {
       items.forEach(({ name }) => {
         if (value.name.toLowerCase() === name.toLowerCase()) {
-          alert(`${value.name} is already in contacts`);
           isName = true;
         }
       });
     }
-
-    if (!isName) {
-      toast.success('Contact added!');
-      dispatch(addContact(value));
-      resetForm();
+    switch (true) {
+      case isName:
+        alert(`${value.name} is already in contacts`);
+        break;
+      case !isName && !error:
+        try {
+          await dispatch(addContact(value));
+          resetForm();
+          toast.success('Contact added!');
+        } catch (error) {}
+        break;
+      default:
+        toast.error('Connection error, please try again later!');
+        break;
     }
   };
 
@@ -72,7 +81,7 @@ export const ContactForm = () => {
             required
           />
         </Label>
-        <Button type="submit">Add contact</Button>
+        <Button type="submit">Add contact{isLoadingAdd && <Loader />}</Button>
       </FormStyle>
     </Formik>
   );

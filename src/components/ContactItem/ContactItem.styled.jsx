@@ -9,7 +9,11 @@ export const Contact = styled.p`
 `;
 
 export const Button = styled.button`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   width: 100px;
+  height: 16px;
   border-radius: 8px;
   line-height: 0;
   font-size: 19.2px;
