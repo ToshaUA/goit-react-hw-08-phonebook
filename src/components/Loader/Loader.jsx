@@ -2,7 +2,7 @@ import { RotatingLines } from 'react-loader-spinner';
 import { Container } from 'style/Global.styled';
 import { LoaderStyle } from './Loader.styled';
 
-export const LoaderМount = () => {
+export const LoaderMount = () => {
   return (
     <Container>
       <RotatingLines

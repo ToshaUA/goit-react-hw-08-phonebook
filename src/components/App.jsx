@@ -6,8 +6,9 @@ import { Route, Routes } from 'react-router-dom';
 import { Layout } from 'components/Layout';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
-import { refreshUser } from 'redux/auth/operations';
+import { refreshUser } from 'redux/auth/authOperations';
 import { useAuth } from 'hooks/useAuth';
+import { LoaderMount } from 'components/Loader/Loader';
 
 const Home = lazy(() => import('../pages/Home/Home'));
 const Register = lazy(() => import('../pages/Register/Register'));
@@ -23,7 +24,7 @@ export const App = () => {
   }, [dispatch]);
 
   return isRefreshing ? (
-    <b>Refreshing user...</b>
+    <LoaderMount />
   ) : (
     <>
       <Toaster position="bottom-right" reverseOrder={false} />
@@ -52,6 +53,7 @@ export const App = () => {
               <PrivateRoute redirectTo="/login" component={<Contacts />} />
             }
           />
+          <Route path="*" element={<Home />} />
         </Route>
       </Routes>
     </>

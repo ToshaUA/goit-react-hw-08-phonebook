@@ -7,7 +7,7 @@ import { Filter } from '../../components/Filter/Filter';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import { fetchContacts } from 'redux/operations';
-import { LoaderМount } from '../../components/Loader/Loader';
+import { LoaderMount } from '../../components/Loader/Loader';
 import { Toaster } from 'react-hot-toast';
 
 const Contacts = () => {
@@ -26,7 +26,7 @@ const Contacts = () => {
       </Section>
       <Section title={'Contacts'}>
         <Filter />
-        {isLoading && <LoaderМount />}
+        {isLoading && <LoaderMount />}
         {error && <div>Sorry, something went wrong :( Please try again</div>}
         {items.length > 0 && !isLoading && <ContactList />}
         {!isLoading && items.length === 0 && <>You haven't any contacts yet</>}

@@ -7,7 +7,7 @@ import { Loader } from '../Loader/Loader';
 import toast from 'react-hot-toast';
 import PropTypes from 'prop-types';
 
-export const ContactItem = ({ contact: { id, name, phone } }) => {
+export const ContactItem = ({ contact: { id, name, number } }) => {
   const dispatch = useDispatch();
   const { isLoadingDelete } = useSelector(selectContacts);
 
@@ -24,7 +24,7 @@ export const ContactItem = ({ contact: { id, name, phone } }) => {
   return (
     <>
       <Contact>
-        {name}: {phone}
+        {name}: {number}
       </Contact>
       <Button type="button" onClick={() => handleDelete(id)}>
         Delete
@@ -38,6 +38,6 @@ ContactItem.propTypes = {
   contact: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    phone: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
   }),
 };

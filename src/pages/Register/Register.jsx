@@ -1,13 +1,16 @@
 import { Helmet } from 'react-helmet';
 import { RegisterForm } from 'components/RegisterForm/RegisterForm';
+import { Container } from 'style/Global.styled';
 
-export default function Register() {
+const Register = () => {
   return (
-    <div>
+    <Container>
       <Helmet>
         <title>Registration</title>
       </Helmet>
       <RegisterForm />
-    </div>
+    </Container>
   );
-}
+};
+
+export default Register;

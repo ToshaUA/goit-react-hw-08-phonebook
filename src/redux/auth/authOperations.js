@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
@@ -26,7 +27,11 @@ export const register = createAsyncThunk(
       setAuthHeader(data.token);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      if (error.response.status === 400) {
+        toast.error(`Invalid data entry, please check and try again!`);
+        return thunkAPI.rejectWithValue(error.message);
+      }
+      toast.error('Connection error, please try again later!');
     }
   }
 );
@@ -42,9 +47,12 @@ export const logIn = createAsyncThunk(
       const res = await axios.post('/users/login', credentials);
       // After successful login, add the token to the HTTP header
       setAuthHeader(res.data.token);
+      toast(`Hello, ${res.data.user.name}!`, {
+        icon: '👋',
+      });
       return res.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      toast.error('Invalid data entry, please check and try again!');
     }
   }
 );
@@ -56,10 +64,13 @@ export const logIn = createAsyncThunk(
 export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await axios.post('/users/logout');
+    toast('Goodbye!', {
+      icon: '👋',
+    });
     // After a successful logout, remove the token from the HTTP header
     clearAuthHeader();
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    toast.error('Invalid data entry, please check and try again!');
   }
 });
 
@@ -86,7 +97,7 @@ export const refreshUser = createAsyncThunk(
       const { data } = await axios.get('/users/current');
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      toast.error('Connection error, please try again later!');
     }
   }
 );

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 body {
+  padding-top: 120px;
   background:#ebecf0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
