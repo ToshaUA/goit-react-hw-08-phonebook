@@ -1,4 +1,4 @@
-import { Container } from '../../style/Global.styled';
+import { Container, Notification } from '../../style/Global.styled';
 import { useEffect } from 'react';
 import { ContactForm } from '../../components/ContactForm/ContactForm';
 import { Section } from '../../components/Section/Section';
@@ -27,9 +27,10 @@ const Contacts = () => {
       <Section title={'Contacts'}>
         <Filter />
         {isLoading && <LoaderMount />}
-        {error && <div>Sorry, something went wrong :( Please try again</div>}
-        {items.length > 0 && !isLoading && <ContactList />}
-        {!isLoading && items.length === 0 && <>You haven't any contacts yet</>}
+        {items.length > 0 && !isLoading && !error && <ContactList />}
+        {!isLoading && items.length === 0 && (
+          <Notification>You don't have contacts yet 🤷‍♂️</Notification>
+        )}
       </Section>
       <Toaster position="bottom-right" reverseOrder={false} />
     </Container>

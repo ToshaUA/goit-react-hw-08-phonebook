@@ -51,3 +51,14 @@ export const Container = styled.div`
   gap: 25px;
   padding: 20px;
 `;
+
+export const Notification = styled.h3`
+  color: #ae1100;
+  display: flex;
+  justify-content: space-evenly;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -0.2px;
+  align-items: center;
+  font-weight: 700;
+  text-shadow: 1px 1px 0 #fff;
+`;
